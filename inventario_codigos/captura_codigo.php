@@ -122,34 +122,76 @@ $consulta_clientes = mysql_query($sql_clientes,$conexion);
 <script language="JavaScript" type="text/JavaScript">
             
 			$(document).ready(function(){
-               
-					
-					/////////////////////////
-					$("#grabar_codigo").click(function(){
-							var data =  'codigo=' + $("#codigo").val();
-							data += '&descripcion=' + $("#descripcion").val();
-							data += '&valorunit=' + $("#valorunit").val();
-							data += '&cantidad=' + $("#cantidad").val();
-							data += '&fecha=' + $("#fecha").val();
-							data += '&valorventa=' + $("#valorventa").val();
-							data += '&valorventa=' + $("#valorventa").val();
-							data += '&iva=' + $("#iva").val();
-							data += '&nomina=' + $("#nomina:checked").val();
-							data += '&factura_compra=' + $("#factura_compra").val();
-							data += '&idproveedor=' + $("#idproveedor").val();
-							$.post('grabar_codigo.php',data,function(a){
-							//$(window).attr('location', '../index.php);
-							$("#captura").html(a);
-								//alert(data);
-							});	
-						 });
-					////////////////////////
-					
-			
-			});		////finde la funcion principal de script
+        
+      });		////finde la funcion principal de script
+      
+      $("#grabar_codigo").click(function(){
+        var validacion =  validar();
+        if (validacion == 0 ){ return 0;}
+          var data =  'codigo=' + $("#codigo").val();
+          data += '&descripcion=' + $("#descripcion").val();
+          data += '&valorunit=' + $("#valorunit").val();
+          data += '&cantidad=' + $("#cantidad").val();
+          data += '&fecha=' + $("#fecha").val();
+          data += '&valorventa=' + $("#valorventa").val();
+          data += '&iva=' + $("#iva").val();
+          data += '&nomina=' + $("#nomina:checked").val();
+          data += '&factura_compra=' + $("#factura_compra").val();
+          data += '&idproveedor=' + $("#idproveedor").val();
+          $.post('grabar_codigo.php',data,function(a){
+          //$(window).attr('location', '../index.php);
+          $("#captura").html(a);
+            //alert(data);
+          });	
+         });
 			
 			
-			
+            function validar(){
+
+                if($("#factura_compra").val().length ==  0)
+                {
+                  alert("Falta digitar factura de compra  ") ;
+                  $("#factura_compra").focus();
+                  return 0; 
+                }
+                if($("#idproveedor").val().length ==  0)
+                {
+                  alert("Escoger proveedor  ") ;
+                  $("#idproveedor").focus();
+                  return 0; 
+                }
+                
+               if($("#codigo").val().length ==  0)
+               {
+                 alert("Falta digitar codigo ") ;
+                 $("#codigo").focus();
+                 return 0; 
+               }
+               if($("#descripcion").val().length ==  0)
+               {
+                 alert("Falta digitar descripcion ") ;
+                 $("#descripcion").focus();
+                 return 0; 
+               }
+               if($("#valorunit").val().length ==  0)
+               {
+                 alert("Falta digitar precio de compra  ") ;
+                 $("#valorunit").focus();
+                 return 0; 
+               }
+               if($("#valorventa").val().length ==  0)
+               {
+                 alert("Falta digitar precio venta  ") ;
+                 $("#valorventa").focus();
+                 return 0; 
+               }
+               if($("#cantidad").val().length ==  0)
+               {
+                 alert("Falta digitar cantidad inicial   ") ;
+                 $("#cantidad").focus();
+                 return 0; 
+               }
+            }
 			
 			
 </script>

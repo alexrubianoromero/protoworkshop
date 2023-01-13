@@ -69,6 +69,6 @@ echo '<br>';
 echo '<h2>EL NUEVO SALDO ES DE $'.number_format($nuevo_saldo, 0, ',', '.').' </h2>';
 echo '<br>';
 echo  '<h2><a href="recibo_imprimir.php?numero='.$_POST['numero_recibo'].'" target = "_blank" >VISTA IMPRESION DE RECIBO</a></h2>';
-include('../colocar_links2.php');
+// include('../colocar_links2.php');
 
 ?>

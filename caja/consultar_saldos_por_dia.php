@@ -56,7 +56,7 @@ while($movimientos = mysql_fetch_assoc($consulta_saldos_dia))
 	}
 echo '</table>';	
 
-include('../colocar_links2.php');
+// include('../colocar_links2.php');
 
 
 

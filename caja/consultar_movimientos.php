@@ -29,7 +29,7 @@ while($abiertos = mysql_fetch_assoc($consulta_abiertos))
 		echo '</tr>';
 	}
 echo '</table>';	
-include('../colocar_links2.php');	
+// include('../colocar_links2.php');	
 ?>	
 	
 

@@ -122,7 +122,7 @@ else
   <?php
   
   } // fin de si el dia esta abierto
-  include('../colocar_links2.php');
+//   include('../colocar_links2.php');
   ?>			
 </Div>
 	

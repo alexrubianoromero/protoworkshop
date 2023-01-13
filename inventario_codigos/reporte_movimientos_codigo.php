@@ -26,7 +26,7 @@ $sql_movimientos = "select fecha_movimiento , cantidad,observaciones,facturacomp
 where id_codigo_producto = '".$_GET['id_codigo']."' and id_empresa = '".$_SESSION['id_empresa']."'  and anulado < 1  order by fecha_movimiento ";
 
 
-echo '<br><br>consulta<br>'.$sql_movimientos;
+// echo '<br><br>consulta<br>'.$sql_movimientos;
 
 $consulta_movimientos = mysql_query($sql_movimientos,$conexion);
 $filas_movimientos = mysql_num_rows($consulta_movimientos);

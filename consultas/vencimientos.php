@@ -49,7 +49,7 @@ $consulta_placas = mysql_query($sql_carros,$conexion);
 
 <div id = "carros123">
 <br>
-<?php include('../colocar_links2.php');   ?>
+<!-- <?php include('../colocar_links2.php');   ?> -->
 </div>
 	
 </body>
