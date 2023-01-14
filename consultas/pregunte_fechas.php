@@ -14,6 +14,7 @@
 <p id="titulo2">POR FAVOR INDIQUE LAS FECHAS SOLICITADAS </p>
 <label for="fechain" >Fecha Inicial  </label><input name="fechain" id = "fechain" type="date" class="fila_llenar_fecha" >
 <label for="fechafin" >Fecha Final  </label><input name="fechafin" id = "fechafin" type="date"  class="fila_llenar_fecha" >
+
 <input type ="button" id="consultar"  value = "consultar" class="boton" >
 </div>
 <div id="muestre_resultados"  align="center">

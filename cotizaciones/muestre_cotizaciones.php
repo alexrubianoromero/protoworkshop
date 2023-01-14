@@ -25,6 +25,7 @@ echo '<table border = "1">';
 echo '<tr>';
 echo '<td>No Cotizacion</td>';
 echo '<td>No Factura</td>';
+echo '<td>Orden</td>';
 echo '<td>FECHA</td>';
 echo '<td>NOMBRE</td>';
 echo '<td>CARRO</td>';
@@ -50,7 +51,8 @@ while ($coti =mysql_fetch_assoc($consulta_cotizaciones))
     {
     	echo '<td><a href="../cotizaciones/facturar_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">FACTURAR</a></td>';
     }	
-
+	
+	echo '<td><a href="../orden/ordenes_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">CREAR ORDEN </a></td>';
 
 	echo '<td>'.$coti['fecha'].'</td>';
 	echo '<td>'.$coti['nombre'].'</td>';

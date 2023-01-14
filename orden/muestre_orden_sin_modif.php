@@ -32,18 +32,24 @@ $consulta_ordenes = mysql_query($sql_muestre_ordenes,$conexion);
 
 ?>
 <Div id="contenidos">
-		<header>
-			<h2>CONSULTA ORDENES </h2>
-		</header>
-	
+	<div>
+			   <h3>CONSULTA ORDENES 
+				<select id="idEstado">
+					<option value="...">Seleccione Estado</option>
+					<option value="0">En proceso</option>
+					<option value="1">Lista</option>
+					<option value="2">Entregada</option>
+				</select>
+				<button id="btn_consultar_ordenes" onclick="mostrarOrdenes();">Consultar</button></h3>
+		
+	</div>
+    <div id="div_resultados">
 <?php
-include('../colocar_links2.php');
-echo '<table border= "1">';
+// include('../colocar_links2.php');
+    echo '<table border= "1">';
 	echo '<tr>';
-	echo '<td><h3>No Orden<h3></td><td><h3>Estado</h3></td><td><h3>Linea</h3></td><td><h3>Fecha</h3></td><td><h3>Placa</h3></td><td><h3>Tecnico</h3></td>
-	
-	
-	';
+	echo '<td><h3>No Orden<h3></td><td><h3>Estado</h3></td><td><h3>Linea</h3></td>
+	<td><h3>Fecha</h3></td><td><h3>Placa</h3></td><td><h3>Tecnico</h3></td>';
 	//<td><h3>modificar_honda</h3></td>
 
 		 
@@ -87,7 +93,7 @@ echo '<table border= "1">';
 				echo '<tr>';
 			}
 echo '<table border= "1">';
-
+echo '</div>';	
 //////////////
 function busque_estado($tabla26,$id_estado,$id_empresa,$conexion)
 	{
@@ -117,9 +123,19 @@ function buscar_mecanico($tabla21,$id_mecanico,$id_empresa,$conexion)
 /////////////
 
 ?>
-	</Div>
+</Div>
 </body>
 </html>
 <script src="../js/modernizr.js"></script>   
 <script src="../js/prefixfree.min.js"></script>
 <script src="../js/jquery-2.1.1.js"></script>   
+<script>
+	function mostrarOrdenes(){
+		var data =  'idEstado=' + $("#idEstado").val();
+		// data += '&fecha_entrega=' + $("#fecha_entrega").val();
+		$.post('muestreOrdenesEstado.php',data,function(a){
+	    $("#div_resultados").html(a);
+	    });	
+
+	}
+</script>
