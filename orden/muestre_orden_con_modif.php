@@ -39,7 +39,7 @@ echo '<table border= "1">';
 	echo '<tr>';
 	echo '<td><h3>No Orden<h3></td><td><h3>Estado</h3></td><td><h3>Linea</h3></td><td><h3>Fecha</h3></td><td><h3>Placa</h3></td><td><h3>Tecnico</h3></td>';
 	// echo '<td><h3>FACTURAR</h3></td>';
-	echo '<td><h3>modificar_honda</h3></td>';
+	echo '<td><h3>Modificar</h3></td>';
 
 	if($_SESSION['id_empresa'] == '94' )
 	     {echo '<td><h3>Vista Impresion</h3></td>'; }
@@ -68,12 +68,13 @@ echo '<table border= "1">';
 				// }	
 				// echo '</h3></td>';
 				 echo  '<td><h3>';
-				 if($ordenes['8']<1)
+				 if($ordenes['8']<1 && $ordenes['6'] < 2)
       			{	
 				echo '<a href="../orden/orden_modificar_honda.php?idorden='.$ordenes['0'].'">Modificar</a>';
 				}
 				else{
-					echo 'Facturada';
+					//antes aqui decia facturada
+					echo '';
 				}
 
 				echo '</h3></td>';
