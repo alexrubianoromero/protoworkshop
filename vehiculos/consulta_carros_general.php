@@ -56,7 +56,8 @@ session_start();
 
 
 
-	<?php include('../colocar_links2.php'); 
+	<?php 
+	// include('../colocar_links2.php'); 
 
 	?>
 

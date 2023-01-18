@@ -10,7 +10,7 @@
 
 include('../valotablapc.php');
 
-$sql_cotizaciones = "select cot.id_cotizacion,cot.no_cotizacion,cot.fecha , c.placa,cli.nombre,cot.id_factura   
+$sql_cotizaciones = "select cot.id_cotizacion,cot.no_cotizacion,cot.fecha , c.placa,cli.nombre,cot.id_factura,id_orden   
 from  $cotizaciones  cot
 inner join $tabla4 c on  (c.idcarro = cot.idcarro)
 inner join $tabla3 cli on (cli.idcliente = c.propietario)
@@ -49,10 +49,22 @@ while ($coti =mysql_fetch_assoc($consulta_cotizaciones))
     }
     else
     {
-    	echo '<td><a href="../cotizaciones/facturar_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">FACTURAR</a></td>';
+		echo '<td></td>';
+    	// echo '<td><a href="../cotizaciones/facturar_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">FACTURAR</a></td>';
     }	
 	
-	echo '<td><a href="../orden/ordenes_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">CREAR ORDEN </a></td>';
+	// echo '<td><a href="../orden/ordenes_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'">CREAR ORDEN </a></td>';
+	//solamente si no tiene creada una orden 
+	if($coti['id_orden'] == 0 ){
+		echo '<td><a href="../orden/orden_captura_honda.php?id_cotizacion='.$coti['id_cotizacion'].'&placa123='.$coti['placa'].'">CREAR ORDEN </a></td>';
+	}else{
+		//mostrar el numero de la orden 
+		$sqlNumeroOrden = "select orden from ordenes where id = '".$coti['id_orden']."' "; 
+		$consultaOrden = mysql_query($sqlNumeroOrden,$conexion);
+		$arrOrden = mysql_fetch_assoc($consultaOrden);
+		$numeroOrden =    $arrOrden['orden'];
+		echo '<td>'.$numeroOrden.'</td>';
+	}
 
 	echo '<td>'.$coti['fecha'].'</td>';
 	echo '<td>'.$coti['nombre'].'</td>';

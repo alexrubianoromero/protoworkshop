@@ -1,90 +1,51 @@
 <?php
-
 session_start();
-
 date_default_timezone_set('America/Bogota');
 $hoy = getdate();
-
 $hora_actual = $hoy['hours'].':'.$hoy['minutes'].':'.$hoy['seconds'];
-
-/*
-echo '<pre>';
-
-print_r($_POST);
-
-echo '</pre>';
-
-exit();
-
-*/
-
-
-
+// echo '<pre>';
+// print_r($_POST);
+// echo '</pre>';
+// die();
 include('../valotablapc.php');
-
-
-
 if ($_POST['radio']== 'undefined'){$_POST['radio'] = 0;}
-
 if ($_POST['antena']== 'undefined'){$_POST['antena'] = 0;}
-
 if ($_POST['repuesto']== 'undefined'){$_POST['repuesto'] = 0;}
-
 if ($_POST['herramienta']== 'undefined'){$_POST['herramienta'] = 0;}
 
+//aqui es  donde se debe buscar el numero de orden a asignar
 
-
+$sqlNumeroOrden = "select contaor from $tabla10  ";
+         $ordenActual = mysql_query($sqlNumeroOrden,$conexion);
+         $ordenActual = mysql_fetch_assoc($ordenActual);
+		 $ordenpan = $ordenActual['contaor'] + 1 ;  
 
 
 //aqui se crea el registro de la orden 
-
 $sql_grabar_orden = "insert into $tabla14 (orden,placa,sigla,fecha,observaciones,radio,antena,repuesto,herramienta,otros,
-
 	iva,id_empresa,estado,kilometraje,mecanico,tipo_orden,kilometraje_cambio,fecha_entrega,notificacion,gasolina,hora) 
-
 values (
-
-'".$_POST['orden_numero']."',
-
+'".$ordenpan."',
 '".$_POST['placa']."',
-
 '".$_POST['clave']."',
-
 '".$_POST['fecha']."',
-
 '".$_POST['descripcion']."',
-
 '".$_POST['radio']."',
-
 '".$_POST['antena']."',
-
 '".$_POST['repuesto']."',
-
 '".$_POST['herramienta']."',
-
 '".$_POST['otros']."',
-
 '16',
-
 '".$_SESSION['id_empresa']."',
-
 '0',
-
 '".$_POST['kilometraje']."',
-
 '".$_POST['mecanico']."',
-
 '1',
-
 '".$_POST['kilometraje_cambio']."',
-
 '".$_POST['fecha_entrega']."',
-
 '".$_POST['notificacion']."',
-
 '".$_POST['gasolina']."',
 '".$hora_actual ."'
-
 )";
 
 // el  que se graba en tipo_orden de ordenes indica que es una orden normal 
@@ -95,12 +56,9 @@ values (
 
 //echo '<br>'.$sql_grabar_orden;
 
-
-
 $consulta_grabar = mysql_query($sql_grabar_orden,$conexion); 
-
-$sql_actualizar_contaor = "update $tabla10 set  contaor = '".$_POST['orden_numero']."'  where   id_empresa = '".$_SESSION['id_empresa']."' "; 
-
+		//  $ordenpan = $ordenActual['contaor'] + 1 ;  
+$sql_actualizar_contaor = "update $tabla10 set  contaor = '".$ordenpan."'  "; 
 $consulta = mysql_query($sql_actualizar_contaor,$conexion);
 
 
@@ -164,11 +122,7 @@ $sql_traer_items_temporal = "select * from $tabla18    where  no_factura =  '".$
 $consulta_temporal_definitivo = mysql_query($sql_traer_items_temporal,$conexion);
 
 while($items  =  mysql_fetch_array($consulta_temporal_definitivo))
-
 		{
-
-
-
 			//echo '<br>'.$items[3];
 
 			$sql_grabar_items = " insert into $tabla15   (no_factura,codigo,descripcion,cantidad,total_item,valor_unitario,id_empresa,estado) 
@@ -329,16 +283,90 @@ echo "<br><br><br>ORDEN No ".$_POST['orden_numero']."   GRABADA";
 
 //echo "<br><a href='index.php' >Menu Ordenes</a>";
 
-echo '<br><h2><a href="orden_modificar_honda.php?idorden='.$id_orden['id'].'">ADICIONAR ITEMS A ESTA ORDEN DE ENTRADA</a></h2>';
-
+//aqui se pregunta si la orden se esta creando a partir de una cotizacion 
+if(isset($_REQUEST['id_cotizacion']))
+{
+	// echo ('entro a id_cotizacion');
+	//aqui se deben pasar los items que vienen de la cotiizacion
+	trasladarItemsAOrden($id_orden['id'],$_REQUEST['id_cotizacion'],$conexion);
+	echo '<br>';
+	echo '<h2>SE HA CREADO LA ORDEN PARA ESTA COTIZACION </h2>';
+}
+else{
+	echo '<br><h2><a href="orden_modificar_honda.php?idorden='.$id_orden['id'].'">ADICIONAR ITEMS A ESTA ORDEN DE ENTRADA</a></h2>';
+}
 
 
 //include('orden_modificar_honda.php');
 
-include('../colocar_links2.php');
+// include('../colocar_links2.php');
 
 //<a href="#">#</a>
+function trasladarItemsAOrden($idOrden,$cotizacion,$conexion)
+{
+		// echo 'entro a trasladar items '; 
+		$sqlItemCotizacion = "SELECT * FROM item_orden_cotizaciones WHERE no_factura = '".$cotizacion."'  ";
+		$consultaItemsCoti = mysql_query($sqlItemCotizacion,$conexion);
+		while($itemsCoti = mysql_fetch_assoc($consultaItemsCoti))
+		{
+			//grabar los items de la cotizacion a la orden 
+			$sqlGrabarItem = "INSERT INTO item_orden (no_factura,codigo,descripcion,cantidad,total_item,
+			                   valor_unitario,id_empresa,estado,iva ,total_item_con_iva,anulado,id_mecanico,repman,fecha) 
+								VALUES(
+								 '".$idOrden."'
+								,'".$itemsCoti['codigo']."'
+								,'".$itemsCoti['descripcion']."'
+								,'".$itemsCoti['cantidad']."'
+								,'".$itemsCoti['total_item']."'
+								,'".$itemsCoti['valor_unitario']."'
+								,'".$itemsCoti['id_empresa']."'
+								,'".$itemsCoti['estado']."'
+								,'".$itemsCoti['iva']."'
+								,'".$itemsCoti['total_item_con_iva']."'
+								,'".$itemsCoti['anulado']."'
+								,'".$itemsCoti['id_mecanico']."'
+								,'".$itemsCoti['repman']."'
+								,now()
+								)"; 
 
+					//  echo '<br>'.$sqlGrabarItem.'<br>'; 
 
+			$consulta = mysql_query($sqlGrabarItem,$conexion);
+			$actualizarItem = actualizarExistencias($itemsCoti['codigo'],$itemsCoti['cantidad'],$conexion);
+			actualizarIdOrdenCotizacion($idOrden,$cotizacion,$conexion);
+			//actualizar el inventario 
+			// actualizarExistencias($itemsCoti['codigo'],$itemsCoti['cantidad'],$conexion);
+			//tal vez generar un aviso si no se encuentra existencias para el codigo del inventario 
+		}
+		//actualizar el id_orden en cotizaciones
+
+		//funcion de actualizar codigo 
+
+		
+}
+	function actualizarExistencias($codigo,$cantidad,$conexion)
+	{
+		$sqlExistActual = "SELECT cantidad FROM productos WHERE codigo_producto = '".$codigo."'  ";
+		// echo '<br>'.$sqlExistActual.'<br>';
+		$consulta = mysql_query($sqlExistActual,$conexion);
+		$filas = mysql_num_rows($consulta); 
+		// echo 'filas'.$filas.'<br>';
+		if($filas>0){
+				$exist = mysql_fetch_assoc($consulta);
+				$cantidadActual = $exist['cantidad']; 
+				$saldo = $cantidadActual - $cantidad; 
+				$sqlGrabarSaldo = "UPDATE productos set  cantidad = $saldo   WHERE codigo_producto = '".$codigo."' 	";
+				// echo '<br>'.$sqlGrabarSaldo.'<br>';
+				$consulta1 = mysql_query($sqlGrabarSaldo,$conexion); 
+		} else{
+		} 	
+		
+	}
+
+	function actualizarIdOrdenCotizacion($idOrden,$cotizacion,$conexion)
+	{
+			$sql_update = "update cotizaciones  set id_orden =   '".$idOrden."'   where id_cotizacion = '".$cotizacion."'  ";
+			$consultaActualizar = mysql_query($sql_update,$conexion); 
+	}
 
 ?>

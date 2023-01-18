@@ -87,7 +87,7 @@ $usuario = "ctwtvsxj_admin";
 
 $clave  = "ElMejorProgramador***";
 
-$nombrebase = "ctwtvsxj_base_protoworkshop";
+$nombrebase = "ctwtvsxj_base_protoworkshop_pruebas";
 
 
 

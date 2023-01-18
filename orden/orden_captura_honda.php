@@ -13,11 +13,11 @@ session_start();
 <body>
 
 <?php
-/*
-echo '<pre>';
-print_r($_GET);
-echo '</pre>';
-*/
+
+// echo '<pre>';
+// print_r($_REQUEST);
+// echo '</pre>';
+// die();
 date_default_timezone_set('America/Bogota');
 include('../valotablapc.php');  
 include('../funciones.php'); 
@@ -35,9 +35,11 @@ $sql_maxima_remision  = "select contaor from $tabla10  where id_empresa = '".$_S
 		 
 		 $ordenpan = $maximoid['contaor'] + 1 ;  
 				$_SESSION['ordenpan']= $ordenpan;
+
+
 $sql_placas = "select nombre,identi,direccion,telefono,placa,marca,modelo,color,tipo,chasis,motor  from $tabla4 as car
 inner join $tabla3 as cli on (cli.idcliente = car.propietario)
- where car.placa = '".$_GET['placa123']."' 
+ where car.placa = '".$_REQUEST['placa123']."' 
   and cli.id_empresa = '".$_SESSION['id_empresa']."'
  ";
  
@@ -59,17 +61,26 @@ echo '</pre>';
 
 //echo '<br>numero de items 123<br>'.$filas_nombres_items;
 $fechapan =  time();
-include('../colocar_links2.php');
+// include('../colocar_links2.php');
+
 ?>
 
 
 <div id ="divorden">
-<form name = "capturaordenonda" method = "post"  action ="grabar_orden_honda.php">
+	<form name = "capturaordenonda" method = "post"  action ="grabar_orden_honda.php">
+	<?php	
+		///si la orden viene de una cotizacion pues en el request estara el campo id_cotizacion
+		if(isset($_REQUEST['id_cotizacion']))
+		{
+		  echo '<input type="hidden" name= "id_cotizacion" id="id_cotizacion"  value = '.$_REQUEST['id_cotizacion'].' >';
+		}
+
+ 	?>
     <table border = "1" width = "95%">
       <tr>
         <td colspan="5" rowspan="4"></td>
         <td colspan="2"><h3>ORDEN </h3></td>
-        <td><input name="orden_numero" id = "orden_numero" type="text" size="20" value = "<? echo $ordenpan  ?>"  ></td>
+        <td><input name="orden_numero" id = "orden_numero" type="hidden" size="20" value = "<? echo $ordenpan  ?>"  ></td>
       </tr>
       <tr>
         <td colspan="2"><div align="center">Nit. <?php  echo $datos_empresa['identi'] ?> </div></td>

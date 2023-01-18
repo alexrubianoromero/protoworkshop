@@ -12,7 +12,7 @@ session_start();
 
 <body>
 <?php
-include('../colocar_links2.php');
+// include('../colocar_links2.php');
 include('../valotablapc.php');  
 include('../funciones.php'); 
 
