@@ -20,9 +20,9 @@ $factupan = $_SESSION['id_orden'];
 ?>
 <input name="orden_numero" id = "orden_numero"  type="hidden" size="20" value = "<? echo $_POST['orden_numero'] ?>"  >
 <?php
-$sql_grabar_item = "insert into $tabla15 (no_factura,codigo,descripcion,cantidad,total_item,valor_unitario,id_empresa,estado,id_mecanico)
+$sql_grabar_item = "insert into $tabla15 (no_factura,codigo,descripcion,cantidad,total_item,valor_unitario,id_empresa,estado,id_mecanico,fecha)
 values ('".$_POST['orden_numero']."','".$_POST['codigopan_']."','".$_POST['descripan']."','".$_POST['cantipan']."',
-'".$_POST['totalpan']."','".$_POST['valor_unit']."','".$_SESSION['id_empresa']."','0','".$_POST['id_mecanico']."')";
+'".$_POST['totalpan']."','".$_POST['valor_unit']."','".$_SESSION['id_empresa']."','0','".$_POST['id_mecanico']."',now())";
 $consulta_grabar_item  = mysql_query($sql_grabar_item,$conexion);
 
 $valor_final_inventario = $_POST['exispan']-$_POST['cantipan'];
