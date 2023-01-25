@@ -81,7 +81,11 @@ else {
 #div_hora{
 	font-size: 15px;
 }
-    </style>
+#divInfoCliente
+{
+	font:50px;
+}
+</style>
 </head>
 <body>
 <div = "contenidos">
@@ -89,9 +93,9 @@ else {
 <table  width="<?php echo $ancho_tabla; ?>" border="1">
   <tr>
     <td width="194" align = "center"><img src="../logos/autoscad.png" width="131" height="79"></td>
-    <td colspan="2" align = "center">NIT No   <?php  echo $datos_orden['identi'];  ?> 
-	<?php  echo '<br>'.$datos_orden['direccion_empresa'];  ?> 
-	<?php  echo '<br>CONTACTO '.$datos_orden['telefonos_empresa'];  ?>	</td>
+    <td colspan="2" align = "center">Nit:<?php  echo $datos_orden['identi'];  ?> 
+	<?php  echo '<br>Direccion'.$datos_orden['direccion_empresa'];  ?> 
+	<?php  echo '<br>Contacto '.$datos_orden['telefonos_empresa'];  ?>	</td>
   </tr>
   <tr>
     <td>ORDEN DE REPARACION </td>
@@ -99,45 +103,47 @@ else {
     <td width="51"><?php echo $datos_orden['orden']  ?></td>
   </tr>
 </table>
+
+<div id="divInfoCliente">
+		<table width="<?php echo $ancho_tabla; ?>" border="1">
+		<tr>
+			<td>RAZON SOCIAL.. </td>
+			<td><?php echo $datos_orden['nombrecli']  ?></td>
+			<td>FECHA</td>
+			<td><?php echo $datos_orden['fecha']  ?></td>
+		</tr>
+		<tr>
+			<td>DIRECCION</td>
+			<td><?php echo $datos_orden['direccion']  ?></td>
+			<td>KILOMETRAJE...</td>
+			<td><?php echo $datos_orden['kilometraje']  ?></td>
+		</tr>
+		</table>
+		<table width="<?php echo $ancho_tabla; ?>" border="1">
+		<tr>
+			<td>ID</td>
+			<td><?php echo $datos_orden['clidenti']  ?></td>
+			<td>TELEFONO</td>
+			<td><?php echo $datos_orden['telefono']  ?></td>
+			<td>VEHICULO/LINEA</td>
+			<td><?php echo $datos_orden['marca'].'/'.$datos_orden['tipo']  ?></td>
+			<td>MODELO</td>
+			<td><?php echo $datos_orden['modelo']  ?></td>
+		</tr>
+		</table>
+		<table width="<?php echo $ancho_tabla; ?>" border="1">
+		<tr>
+			<td>COLOR</td>
+			<td><?php echo $datos_orden['color']  ?></td>
+			<td>PLACA</td>
+			<td><?php echo $datos_orden['placa']  ?></td>
+			<td>SERIAL</td>
+			<td><?php echo $datos_orden['chasis']  ?></td>
+		</tr>
+		</table>
+
+</div> 
 <h80>
-<table width="<?php echo $ancho_tabla; ?>" border="1">
-  <tr>
-    <td>RAZON SOCIAL </td>
-    <td><?php echo $datos_orden['nombrecli']  ?></td>
-    <td>FECHA</td>
-    <td><?php echo $datos_orden['fecha']  ?></td>
-  </tr>
-  <tr>
-    <td>DIRECCION</td>
-    <td><?php echo $datos_orden['direccion']  ?></td>
-    <td>KILOMETRAJE</td>
-    <td><?php echo $datos_orden['kilometraje']  ?></td>
-  </tr>
-</table>
-<table width="<?php echo $ancho_tabla; ?>" border="1">
-  <tr>
-    <td>ID</td>
-    <td><?php echo $datos_orden['clidenti']  ?></td>
-    <td>TELEFONO</td>
-    <td><?php echo $datos_orden['telefono']  ?></td>
-    <td>VEHICULO/LINEA</td>
-    <td><?php echo $datos_orden['marca'].'/'.$datos_orden['tipo']  ?></td>
-    <td>MODELO</td>
-    <td><?php echo $datos_orden['modelo']  ?></td>
-  </tr>
-</table>
-<table width="<?php echo $ancho_tabla; ?>" border="1">
-  <tr>
-    <td>COLOR</td>
-    <td><?php echo $datos_orden['color']  ?></td>
-    <td>PLACA</td>
-    <td><?php echo $datos_orden['placa']  ?></td>
-    <td>SERIAL</td>
-    <td><?php echo $datos_orden['chasis']  ?></td>
-  </tr>
-</table>
-
-
 <table  width="<?php echo $ancho_tabla; ?>" border="1">
 
 <?php   
