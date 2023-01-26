@@ -17,7 +17,6 @@ inner join $tabla3 cli on (cli.idcliente = c.propietario)
 
 
 order by id_cotizacion desc";
-
 $consulta_cotizaciones = mysql_query($sql_cotizaciones,$conexion);
 
 echo '<div id="cotizaciones" align="center">';
@@ -66,6 +65,7 @@ while ($coti =mysql_fetch_assoc($consulta_cotizaciones))
 		$numeroOrden =    $arrOrden['orden'];
 		echo '<td>'.$numeroOrden.'</td>';
 	}
+
 	echo '<td>'.$coti['fecha'].'</td>';
 	echo '<td>'.$coti['nombre'].'</td>';
 	echo '<td>'.$coti['placa'].'</td>';

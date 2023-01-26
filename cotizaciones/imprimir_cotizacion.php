@@ -76,6 +76,7 @@ $ancho_tabla= "90%";
   <tr align="center">
     <td>ITEM</td>
     <td>DESCRIPCION MANO DE OBRA  </td>
+    <td>CANTIDAD</td>
     <td>TOTAL</td>
   </tr>
   <?php
@@ -84,6 +85,7 @@ $suma_mano =mostrar_items_parametro($item_orden_cotizaciones,$_REQUEST['id_cotiz
  <tr align="center">
     <td>ITEM</td>
     <td>DESCRIPCION REPUESTOS </td>
+    <td>CANTIDAD</td>
     <td>TOTAL</td>
   </tr>
   <?php
@@ -101,27 +103,26 @@ $total = $subtotales + $valor_iva;
 ?>
 
  <tr>
-    <td colspan="2">SUBTOTALES</td>
-  
+    <td colspan="3">SUBTOTALES</td>
     <td align="right"><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan="2" align="right">SUBTOTAL</td>
+    <td colspan="3" align="right">SUBTOTAL</td>
   
     <td align="right" ><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan="2"align="right">IVA</td>
+    <td colspan="3"align="right">IVA</td>
   
     <td align="right"><?php echo '$'.number_format($valor_iva, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan="2" align="right">TOTAL</td>
+    <td colspan="3" align="right">TOTAL</td>
   
     <td align="right"><?php echo '$'.number_format($total, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan ='3' align="center">VALIDEZ DE LA OFERTA 30 DIAS CALENDARIO</td>
+    <td colspan ='4' align="center">VALIDEZ DE LA OFERTA 30 DIAS CALENDARIO</td>
    </tr> 
 </table>
 </div>
@@ -142,6 +143,7 @@ function mostrar_items_parametro($tabla,$id_cotizacion,$parametro,$conexion,$anc
       echo '<tr>';
       echo '<td align="center">'.$no_item.'</td>';
       echo '<td>'.$item['descripcion'].'</td>';
+      echo '<td align="center">'.$item['cantidad'].'</td>';
       echo '<td align ="right">'.'$'.number_format($item['total_item'], 0, ',', '.').'</td>';
       echo '</tr>';
       $no_item ++;
@@ -164,6 +166,7 @@ function completar_espacios_cotiza($filas){
   for( $i=1; $i <= $no_filas_pintar;$i++)
   {
     echo '<tr>';
+    echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
