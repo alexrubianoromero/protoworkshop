@@ -107,7 +107,7 @@ else {
 <div id="divInfoCliente">
 		<table width="<?php echo $ancho_tabla; ?>" border="1">
 		<tr>
-			<td>RAZON SOCIAL.. </td>
+			<td>RAZON SOCIAL</td>
 			<td><?php echo $datos_orden['nombrecli']  ?></td>
 			<td>FECHA</td>
 			<td><?php echo $datos_orden['fecha']  ?></td>
@@ -115,7 +115,7 @@ else {
 		<tr>
 			<td>DIRECCION</td>
 			<td><?php echo $datos_orden['direccion']  ?></td>
-			<td>KILOMETRAJE...</td>
+			<td>KILOMETRAJE</td>
 			<td><?php echo $datos_orden['kilometraje']  ?></td>
 		</tr>
 		</table>

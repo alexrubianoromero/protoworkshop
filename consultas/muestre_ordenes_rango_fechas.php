@@ -7,18 +7,18 @@ include('../valotablapc.php');
 // echo '</pre>';
 // die();
 $sql_ordenes = "select o.fecha,o.orden,o.placa,o.kilometraje,o.observaciones,i.codigo,i.descripcion
-,i.valor_unitario,i.cantidad,i.total_item,estado
+,i.valor_unitario,i.cantidad,i.total_item,o.estado
  from $tabla14 o
  inner join $tabla15 i on (i.no_factura = o.id)
 where 1=1 ";
 
 if($_REQUEST['fechain']!="")
 {
-	$sql_ordenes .=" and fecha > '".$_REQUEST['fechain']."' ";
+	$sql_ordenes .=" and o.fecha > '".$_REQUEST['fechain']."' ";
 }
 if($_REQUEST['fechafin']!="")
 {
-	$sql_ordenes .=" and fecha < '".$_REQUEST['fechafin']."' ";
+	$sql_ordenes .=" and o.fecha < '".$_REQUEST['fechafin']."' ";
 }
 
 $sql_ordenes .="  and i.anulado = 0   order by o.id "; 
