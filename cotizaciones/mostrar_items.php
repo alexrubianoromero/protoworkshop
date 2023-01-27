@@ -100,7 +100,8 @@ function mostrar_items($factupan)
 							  }
 							  $suma_repuestos_y_aceites  = $suma_repuestos + $suma_aceites;
 							  $suma_repuestos_manos_obra_sin_aceite  =  $suma_repuestos + $suma_manos_obra;
-							  $total_iva = ($suma_repuestos_manos_obra_sin_aceite * 19)/100;
+							//   $total_iva = ($suma_repuestos_manos_obra_sin_aceite * 19)/100;
+							  $total_iva = 0;
 							  $total_remision = $subtotal_remision+ $total_iva;
 							  //echo '<tr><td></td><td></td><td></td><td>TOTAL</td><td>'.$total_remision.'</td></tr></table>';
 							  echo '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>';

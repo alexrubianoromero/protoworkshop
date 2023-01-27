@@ -96,7 +96,8 @@ $suma_repuestos=mostrar_items_parametro($item_orden_cotizaciones,$_REQUEST['id_c
 ///////////////////////////////////////////////////////////
 $subtotales = $suma_mano  + $suma_repuestos +$suma_aceites; 
 $suma_repuestos_y_mano_sin_aceites  = $suma_repuestos + $suma_mano;
-$valor_iva = ($suma_repuestos_y_mano_sin_aceites * $iva)/100;
+// $valor_iva = ($suma_repuestos_y_mano_sin_aceites * $iva)/100;
+$valor_iva = 0;
 $total = $subtotales + $valor_iva;
 
 
@@ -111,12 +112,12 @@ $total = $subtotales + $valor_iva;
   
     <td align="right" ><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td colspan="3"align="right">IVA</td>
   
     <td align="right"><?php echo '$'.number_format($valor_iva, 0, ',', '.'); ?></td>
   </tr>
-  <tr>
+  <tr> -->
     <td colspan="3" align="right">TOTAL</td>
   
     <td align="right"><?php echo '$'.number_format($total, 0, ',', '.'); ?></td>
