@@ -95,8 +95,11 @@ while ($coti =mysql_fetch_assoc($consulta_cotizaciones))
 		id="btnConSinIva"  value = "1" onclick="cambiarIva('.$coti['id_cotizacion'].'); ">
 		<span id="letrasboton">QUITAR IVA</span></button></td>';
 	}
-
-	echo '<td><a href ="modificar_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'" >Modificar</a></td>';
+	echo '<td>';
+	if($coti['id_orden'] == 0 ){
+	echo '<a href ="modificar_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'" >Modificar</a>';
+	}
+	echo '</td>';
 	echo '<td><a href="imprimir_cotizacion.php?id_cotizacion='.$coti['id_cotizacion'].'" target="_blank">Imprimir</a></td>';
 	echo '<tr>';
 }
