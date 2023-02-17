@@ -310,6 +310,9 @@ function trasladarItemsAOrden($idOrden,$cotizacion,$conexion)
 		while($itemsCoti = mysql_fetch_assoc($consultaItemsCoti))
 		{
 			//grabar los items de la cotizacion a la orden 
+			//siempre y cuando esten chuleados
+			if($itemsCoti['sumar']=="1") //osea si estan chuleados en la cotizacion
+			{
 			$sqlGrabarItem = "INSERT INTO item_orden (no_factura,codigo,descripcion,cantidad,total_item,
 			                   valor_unitario,id_empresa,estado,iva ,total_item_con_iva,anulado,id_mecanico,repman,fecha) 
 								VALUES(
@@ -334,6 +337,7 @@ function trasladarItemsAOrden($idOrden,$cotizacion,$conexion)
 			$consulta = mysql_query($sqlGrabarItem,$conexion);
 			$actualizarItem = actualizarExistencias($itemsCoti['codigo'],$itemsCoti['cantidad'],$conexion);
 			actualizarIdOrdenCotizacion($idOrden,$cotizacion,$conexion);
+			}
 			//actualizar el inventario 
 			// actualizarExistencias($itemsCoti['codigo'],$itemsCoti['cantidad'],$conexion);
 			//tal vez generar un aviso si no se encuentra existencias para el codigo del inventario 
