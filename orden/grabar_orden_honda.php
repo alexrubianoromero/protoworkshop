@@ -311,7 +311,7 @@ function trasladarItemsAOrden($idOrden,$cotizacion,$conexion)
 		{
 			//grabar los items de la cotizacion a la orden 
 			//siempre y cuando esten chuleados
-			if($itemsCoti['sumar']=="1") //osea si estan chuleados en la cotizacion
+			if($itemsCoti['sumar']=="1") //osea si estan checkeados en la cotizacion
 			{
 			$sqlGrabarItem = "INSERT INTO item_orden (no_factura,codigo,descripcion,cantidad,total_item,
 			                   valor_unitario,id_empresa,estado,iva ,total_item_con_iva,anulado,id_mecanico,repman,fecha) 
