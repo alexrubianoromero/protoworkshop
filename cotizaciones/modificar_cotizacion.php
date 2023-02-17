@@ -129,6 +129,7 @@ $ancho_tabla= "90%";
 <script src="../js/prefixfree.min.js"></script>
 <script src="../jquery-2.1.1.js"></script>  
 <script src="jquery-2.1.1.js"></script>   
+<script src="js/cotizaciones.js"></script>   
 
 <script>
   $(document).ready(function(){

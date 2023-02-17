@@ -43,7 +43,8 @@ function mostrar_items($factupan)
 
 						echo '<td>	VALOR</td>';
 
-						echo '<td>	ACCION..</td>';
+						echo '<td>	ACCION</td>';
+						echo '<td>	SUMAR</td>';
 
 						$subtotal_remision =0;
 
@@ -79,21 +80,35 @@ function mostrar_items($factupan)
 
 							  echo '<input name="orden_numero" id = "orden_numero"  type="hidden" size="20" value = "'.$d['id_item'].'"  >';
 
-							  echo '<td><button type = "button" id = "eliminar" class="eliminar" value = "'.$d['id_item'].'" > Eliminar Item</button></td>';
-							  echo '<td><input type="hidden" id="factupan" value="'.$factupan.'"></td>';
+							  echo '<td>';
+							  echo '<button type = "button" id = "eliminar" class="eliminar" value = "'.$d['id_item'].'" > Eliminar Item</button>';
+							  echo '</td>';
+							  echo '<td>'; 
+							  echo'<input type="hidden" id="factupan" value="'.$factupan.'">'; 
+							  if($d['sumar']=='1')
+							  {
+								  echo '<input type="checkbox" checked value = "'.$d['id_item'].'" class="quitarsumaitem">' ;
+								}else{
+								  echo '<input type="checkbox" value = "'.$d['id_item'].'"  class="incluirsumaitem">' ;
+							  }
+
+							  echo '</td>';
+							  
 							  echo '</tr>';
-							  if($d['repman']=='M')
+							  if($d['repman']=='M' && $d['sumar']=='1')
 							  	{$suma_manos_obra =$suma_manos_obra + $d['total_item'];}
-							     if($d['repman']=='A')
+							     if($d['repman']=='A' && $d['sumar']=='1')
 							  	{$suma_aceites =$suma_aceites + $d['total_item'];}
 
-							   if($d['repman']=='R')
+							   if($d['repman']=='R' && $d['sumar']=='1')
 							  	{$suma_repuestos =$suma_repuestos + $d['total_item'];}
 
 							
-
-
-							    $subtotal_remision = $subtotal_remision + $d['total_item'];
+							
+								  if($d['sumar']=='1')
+								  {
+									  $subtotal_remision = $subtotal_remision + $d['total_item'];
+								  }
 
 							  $num++;
 
@@ -129,28 +144,40 @@ function mostrar_items($factupan)
 <script src="../js/prefixfree.min.js"></script>
 <script src="../jquery-2.1.1.js"></script>  
 <script src="jquery-2.1.1.js"></script>   
+<script src="js/cotizaciones.js"></script>   
 <script>
-  $(document).ready(function(){
-$("#prueba").click(function(){
-		 alert('asdasdadasdadas');
+$(document).ready(function(){
+	$("#prueba").click(function(){
+			// alert('asdasdadasdadas');
+	});
+	//////////////////////////////
+		$(".eliminar").click(function(){
+			var data =  'eliminar=' + $(this).attr('value');
+				data += '&id_cotizacion=' + $("#factupan").val();
+				$.post('eliminar_items_cotizacion.php',data,function(a){
+					$("#div_items").html(a);
+					//alert(data);
+				});	
+			});
+			//////////////////////////
+		$(".quitarsumaitem").click(function(){
+			// alert('revisar suma'+ $(this).attr('value')); 
+			var data =  'idItem=' + $(this).attr('value');
+			data += '&id_cotizacion=' + $("#factupan").val();
+			data += '&value=' + '0';
+			$.post('verificarsumaitems.php',data,function(a){
+				$("#div_items").html(a);
+			});	
 		});
-  //////////////////////////////
-	$(".eliminar").click(function(){
-
-			
-
-							var data =  'eliminar=' + $(this).attr('value');
-							data += '&id_cotizacion=' + $("#factupan").val();
-
-							$.post('eliminar_items_cotizacion.php',data,function(a){
-
-								$("#div_items").html(a);
-
-								//alert(data);
-
-							});	
-
-						 });
-  //////////////////////////
+		$(".incluirsumaitem").click(function(){
+			// alert('revisar suma'+ $(this).attr('value')); 
+			var data =  'idItem=' + $(this).attr('value');
+			data += '&id_cotizacion=' + $("#factupan").val();
+			data += '&value=' + '1';
+			$.post('verificarsumaitems.php',data,function(a){
+				$("#div_items").html(a);
+			});	
+		});
+  	////////////////////
     });
 </script>

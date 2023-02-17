@@ -14,6 +14,7 @@ $iva = $arr_iva['iva'];
 $sql_numero_cotizacion ="select cot.fecha,cot.id_cotizacion,cot.no_cotizacion,
 cot.kilometraje,
 cli.identi,cli.direccion,cli.nombre,cli.email,cli.telefono,c.color,c.marca,c.placa,c.modelo 
+,cot.coniva
 from $cotizaciones cot
 inner join $tabla4 c on (c.idcarro = cot.idcarro)
 inner join $tabla3 cli on (cli.idcliente = c.propietario)
@@ -96,34 +97,50 @@ $suma_repuestos=mostrar_items_parametro($item_orden_cotizaciones,$_REQUEST['id_c
 ///////////////////////////////////////////////////////////
 $subtotales = $suma_mano  + $suma_repuestos +$suma_aceites; 
 $suma_repuestos_y_mano_sin_aceites  = $suma_repuestos + $suma_mano;
-// $valor_iva = ($suma_repuestos_y_mano_sin_aceites * $iva)/100;
-$valor_iva = 0;
+// die('valor de coniva'.$arr_cot['coniva']);
+if($arr_cot['coniva']==1)
+{
+  $valor_iva = ($suma_repuestos_y_mano_sin_aceites * $iva)/100;
+}else{
+  $valor_iva = 0;
+}
+
 $total = $subtotales + $valor_iva;
 
 
 ?>
 
- <tr>
-    <td colspan="3">SUBTOTALES</td>
+ <!-- <tr>
+  <td colspan="3"></td>
+    <td align="right" >SUBTOTALES</td>
     <td align="right"><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
+   -->
   <tr>
-    <td colspan="3" align="right">SUBTOTAL</td>
+    <td colspan="4" align="right">SUBTOTAL</td>
   
     <td align="right" ><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
-  <!-- <tr>
-    <td colspan="3"align="right">IVA</td>
-  
-    <td align="right"><?php echo '$'.number_format($valor_iva, 0, ',', '.'); ?></td>
-  </tr>
-  <tr> -->
-    <td colspan="3" align="right">TOTAL</td>
+  <?php
+  if($arr_cot['coniva']==1)
+  {
+    echo '<tr>';
+    echo   '<td colspan="4"align="right">IVA</td>';
+    echo '<td align="right">';
+    echo '$'.number_format($valor_iva, 0, ',', '.'); 
+    echo  '</td>';
+    echo '</tr>';
+    echo '<tr>';
+  }
+  ?>
+
+
+    <td colspan="4" align="right">TOTAL</td>
   
     <td align="right"><?php echo '$'.number_format($total, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan ='4' align="center">VALIDEZ DE LA OFERTA 30 DIAS CALENDARIO</td>
+    <td colspan ='4' align="center">6 MESES DE GARANTIA EN REPUESTOS Y MANOS DE OBRA</td>
    </tr> 
 </table>
 </div>
@@ -145,7 +162,9 @@ function mostrar_items_parametro($tabla,$id_cotizacion,$parametro,$conexion,$anc
       echo '<td align="center">'.$no_item.'</td>';
       echo '<td>'.$item['descripcion'].'</td>';
       echo '<td align="center">'.$item['cantidad'].'</td>';
-      echo '<td align ="right">'.'$'.number_format($item['total_item'], 0, ',', '.').'</td>';
+      echo '<td>';
+      echo '<td align ="right">'.'$'.number_format($item['total_item'], 0, ',', '.');
+      echo '</td>';
       echo '</tr>';
       $no_item ++;
       $suma_item = $suma_item + $item['total_item'];
@@ -167,6 +186,7 @@ function completar_espacios_cotiza($filas){
   for( $i=1; $i <= $no_filas_pintar;$i++)
   {
     echo '<tr>';
+    echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
