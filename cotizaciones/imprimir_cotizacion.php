@@ -117,7 +117,7 @@ $total = $subtotales + $valor_iva;
   </tr>
    -->
   <tr>
-    <td colspan="4" align="right">SUBTOTAL</td>
+    <td colspan="3" align="right">SUBTOTAL</td>
   
     <td align="right" ><?php echo '$'.number_format($subtotales, 0, ',', '.'); ?></td>
   </tr>
@@ -125,7 +125,7 @@ $total = $subtotales + $valor_iva;
   if($arr_cot['coniva']==1)
   {
     echo '<tr>';
-    echo   '<td colspan="4"align="right">IVA</td>';
+    echo   '<td colspan="3"align="right">IVA</td>';
     echo '<td align="right">';
     echo '$'.number_format($valor_iva, 0, ',', '.'); 
     echo  '</td>';
@@ -135,12 +135,12 @@ $total = $subtotales + $valor_iva;
   ?>
 
 
-    <td colspan="4" align="right">TOTAL</td>
+    <td colspan="3" align="right">TOTAL</td>
   
     <td align="right"><?php echo '$'.number_format($total, 0, ',', '.'); ?></td>
   </tr>
   <tr>
-    <td colspan ='4' align="center">6 MESES DE GARANTIA EN REPUESTOS Y MANOS DE OBRA</td>
+    <td colspan ='3' align="center">6 MESES DE GARANTIA EN REPUESTOS Y MANOS DE OBRA</td>
    </tr> 
 </table>
 </div>
@@ -162,12 +162,16 @@ function mostrar_items_parametro($tabla,$id_cotizacion,$parametro,$conexion,$anc
       echo '<td align="center">'.$no_item.'</td>';
       echo '<td>'.$item['descripcion'].'</td>';
       echo '<td align="center">'.$item['cantidad'].'</td>';
-      echo '<td>';
-      echo '<td align ="right">'.'$'.number_format($item['total_item'], 0, ',', '.');
+      echo '<td align ="right">';
+      if($item['sumar']=="1"){
+        echo  '$'.number_format($item['total_item'], 0, ',', '.');
+      }
       echo '</td>';
       echo '</tr>';
       $no_item ++;
+      if($item['sumar']=="1"){
       $suma_item = $suma_item + $item['total_item'];
+      }
   }//fin de while
   if($parametro!='A')
   {
@@ -190,7 +194,7 @@ function completar_espacios_cotiza($filas){
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
     echo '<td>&nbsp;</td>';
-    echo '<td>&nbsp;</td>';
+    // echo '<td>&nbsp;</td>';
     echo '</tr>';
   }
 
