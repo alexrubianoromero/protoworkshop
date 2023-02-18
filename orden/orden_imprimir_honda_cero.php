@@ -220,7 +220,7 @@ function muestre_items_local($orden,$tabla,$conexion,$id_empresa,$tabla12,$tabla
 				$valor_repuestos=0;
 				$valor_mano = 0;
 				//echo 'pasooooooooooooooooo3333333333333333333'.$orden;
-				$sql_items_orden = "select * from  $tabla where no_factura = '".$orden."' and id_empresa = '".$id_empresa."' and anulado < 1 order by id_item ";
+				$sql_items_orden = "select * from  $tabla where no_factura = '".$orden."'  and anulado < 1 order by id_item ";
 				//echo '<br>'.$sql_items_orden.'<br>';
 				$consulta_items = mysql_query($sql_items_orden,$conexion);
 				$no_item = 0 ;
