@@ -147,7 +147,7 @@ else {
 <table  width="<?php echo $ancho_tabla; ?>" border="1">
 
 <?php   
-pintar_inventario_estado_vehiculo($tabla24,$tabla25,$_SESSION['id_empresa'],$_REQUEST['idorden'],$conexion,$ancho_tabla);
+pintar_inventario_estado_vehiculo($tabla24,$tabla25,'94',$_REQUEST['idorden'],$conexion,$ancho_tabla);
 ?>
 </table>
 
@@ -206,6 +206,8 @@ echo '<tr><td colspan="4"></td><td><strong>TOTAL</strong></td><td align="right">
 Hora creacion orden:  <?php echo $datos_orden['hora']  ?>
 <br>
 DESPUES DE RETIRADO EL VEHICULO  NO SE HACE RESPONSABLE POR PERDIDAS Y/O DAÑOS
+<br>
+6 MESES DE GARANTIA EN REPUESTOS Y MANO DE OBRA
 </div>
 </h80>
 </div>

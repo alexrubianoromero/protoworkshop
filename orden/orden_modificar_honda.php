@@ -375,7 +375,7 @@ include('../colocar_links2.php');
         <td colspan="7"><div align="center">INVENTARIO  <input name="iva" type="hidden" id = "iva"  value = "<?php echo $datos[0]['iva']; ?>"</div></td>
       </tr>
 	  
-	  <?php mostrar_inventario_moto($conexion,$tabla24,$datos[0]['tipo_taller'],$tabla25,$_SESSION['id_empresa'],$_REQUEST['idorden']);
+	  <?php mostrar_inventario_moto($conexion,$tabla24,$datos[0]['tipo_taller'],$tabla25,'94',$_REQUEST['idorden']);
 	 
 		$nombre_estado = busque_estado($tabla26,$datos[0]['estado'],$_SESSION['id_empresa'],$conexion);
 		

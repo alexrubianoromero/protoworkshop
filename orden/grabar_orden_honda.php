@@ -213,15 +213,16 @@ $sql_grabar_items = " insert into $tabla15   (no_factura,codigo,descripcion,cant
 
 
 
-$sql_datos_empresa = "select ruta_imagen,nombre,tipo_taller,identi,telefonos,direccion from $tabla10 where id_empresa = '".$_SESSION['id_empresa']."'  ";  
+$sql_datos_empresa = "select ruta_imagen,nombre,tipo_taller,identi,telefonos,direccion from $tabla10   ";  
 
 $consulta_empresa = mysql_query($sql_datos_empresa,$conexion);
 
 $datos_empresa = mysql_fetch_assoc($consulta_empresa);
 
-$sql_nombres_items_inventarios = "select * from $tabla24  where decarroomoto = '".$datos_empresa['tipo_taller']."'   and id_empresa = '".$_SESSION['id_empresa']."' ";
+$sql_nombres_items_inventarios = "select * from nombres_items_carros  where decarroomoto = '".$datos_empresa['tipo_taller']."'   
+and id_empresa = '94'  ";
 
-//echo 'consulta<br>'.$sql_nombres_items_inventarios.'<br>';
+echo 'consulta<br>'.$sql_nombres_items_inventarios.'<br>';
 
 $consulta_nombres_items = mysql_query($sql_nombres_items_inventarios,$conexion);
 
@@ -253,13 +254,14 @@ while ($nombres2_items = mysql_fetch_assoc($consulta_nombres_items))
 
 				$palabra_cantidad = 'cantidad_'.$id_item;
 
-				$sql_grabar_item_inventario = "insert into $tabla25 
+				$sql_grabar_item_inventario = "insert into relacion_orden_inventario 
 
 				(id_empresa,id_orden,id_nombre_inventario,valor,cantidad) 
 
-				values ('".$_SESSION['id_empresa']."','".$id_orden['id']."','".$id_item."','".$_POST[$id_item]."','".$_POST[$palabra_cantidad]."')";
+				values ('94','".$id_orden['id']."','".$id_item."','".$_POST[$id_item]."','".$_POST[$palabra_cantidad]."')";
 
-				//echo '<br>la consulta'.$sql_grabar_item_inventario.'<br>';
+				// echo '<br>la consulta'.$sql_grabar_item_inventario.'<br>';
+				// die();
 
 				//echo '<br>123post'. $_POST[$id_item].'valor del nombre'.$nombres2_items['nombre'];
 

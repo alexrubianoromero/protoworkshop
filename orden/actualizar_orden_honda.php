@@ -1,14 +1,15 @@
 <?php
 session_start();
-/*
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-echo '---------------------------------------------------------------------------';
-echo '<pre>';
-print_r($_REQUEST);
-echo '</pre>';
-*/
+
+// echo '<pre>';
+// print_r($_POST);
+// echo '</pre>';
+// echo '---------------------------------------------------------------------------';
+// echo '<pre>';
+// print_r($_REQUEST);
+// echo '</pre>';
+// die();
+
 //exit();
 
 
@@ -73,7 +74,7 @@ $sql_actualizar_orden.= "   where id = '".$_POST['id_orden']."'
 
 $consulta_grabar = mysql_query($sql_actualizar_orden,$conexion); 
 
-actualizar_inventario_estado_vehiculo($tabla24,$tabla25,$_SESSION['id_empresa'],$id_orden,$conexion);
+actualizar_inventario_estado_vehiculo($tabla24,$tabla25,'94',$id_orden,$conexion);
 
 /////////////si se cambio la placa actualizarla en facturas 
 if($_POST['cambiar_placa'] == 1)

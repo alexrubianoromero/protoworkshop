@@ -237,12 +237,16 @@ where r.id_empresa = '".$id_empresa."'
 and r.id_orden = '".$id_orden."'
 order by r.id_relacion_orden_inventario
 ";
-   //echo '<br>--------------------'.$sql_nombres_items_inventarios.'<br>';
+//    echo '<br>--------------------'.$sql_nombres_items_inventarios.'<br>';
    $consulta_nombres_inventario = mysql_query($sql_nombres_items_inventarios,$conexion);
    
    	$consulta_nombres_items = mysql_query($sql_nombres_items_inventarios,$conexion);
 	$filas_nombres_items = mysql_num_rows($consulta_nombres_items);
 	$nombres2_items = get_table_assoc($consulta_nombres_items);
+
+// 	echo '<pre>';
+// print_r($nombres2_items);
+// echo '</pre>';
    
    $ancho_inventario = $ancho_tabla -5;
 	//echo '<table border = "1" width = "'.$ancho_inventario.'" > ';
@@ -267,8 +271,8 @@ order by r.id_relacion_orden_inventario
 		echo $nombres2_items[$contador]['nombre'];
 		echo '</td>';
 		echo '<td>';
-		echo '<input type="text"  name = "otro1" id = "otro1" value =" " size="2"> '; 
-		echo '<input type="text"  name = "otro"  id = "otro" value =" " size="2"> ';		
+		echo '<input type="text"  name = "otro1" id = "otro1" value ="'.$nombres2_items[$contador]['valor'].' " size="2"> '; 
+		// echo '<input type="text"  name = "otro"  id = "otro" value =" " size="2"> ';		
 		echo '</td>';
 		echo '<td>';
 		echo '</td>';
@@ -277,8 +281,8 @@ order by r.id_relacion_orden_inventario
 		$segunda_fila = $contador + $items_por_columna;
 		echo '<td>'.$nombres2_items[$segunda_fila]['nombre'].'</td>';
 			echo '<td>';
-		echo '<input type="text"  name = "otro11" id = "otro11" value =" " size="2"> '; 
-		echo '<input type="text"  name = "otro0"  id = "otro0" value =" " size="2"> ';
+		echo '<input type="text"  name = "otro11" id = "otro11" value ="'.$nombres2_items[$segunda_fila]['valor'].' " size="2"> '; 
+		// echo '<input type="text"  name = "otro0"  id = "otro0" value =" " size="2"> ';
 		echo '</td>';
 		
 		echo '<td>';
@@ -288,8 +292,8 @@ order by r.id_relacion_orden_inventario
 		$tercera_fila = $contador + ($items_por_columna*2);
 		echo '<td>'.$nombres2_items[$tercera_fila]['nombre'].'</td>';
 			echo '<td>';
-		echo '<input type="text"  name = "otro111" id = "otro111" value =" " size="2"> '; 
-		echo '<input type="text"  name = "otro00"  id = "otro00" value =" " size="2"> ';
+		echo '<input type="text"  name = "otro111" id = "otro111" value ="'.$nombres2_items[$tercera_fila]['valor'].' " size="2"> '; 
+		// echo '<input type="text"  name = "otro00"  id = "otro00" value =" " size="2"> ';
 		echo '</td>';
 		
 		echo '<td>';
@@ -304,7 +308,6 @@ order by r.id_relacion_orden_inventario
   //echo '</table>';
 }// fin de la funcion de actualizar_inventario_estado_vehiculo
 
-/////////////////////
 
 /////////////////////
 
