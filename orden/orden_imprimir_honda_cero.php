@@ -92,7 +92,7 @@ else {
 <br>
 <table  width="<?php echo $ancho_tabla; ?>" border="1">
   <tr>
-    <td width="194" align = "center"><img src="../logos/autoscad.png" width="131" height="79"></td>
+    <td width="194" align = "center"><img src="../logos/autoscad_largo.png" width="170" height="79"></td>
     <td colspan="2" align = "center">Nit:<?php  echo $datos_orden['identi'];  ?> 
 	<?php  echo '<br>Direccion'.$datos_orden['direccion_empresa'];  ?> 
 	<?php  echo '<br>Contacto '.$datos_orden['telefonos_empresa'];  ?>	</td>

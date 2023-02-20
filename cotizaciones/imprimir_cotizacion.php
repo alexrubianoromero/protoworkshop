@@ -29,7 +29,7 @@ $ancho_tabla= "90%";
 <div id = "datos_cotizacion"  align="center">
 <table width="<?php echo $ancho_tabla ?>" border="1">
   <tr>
-    <td><div align="center"><img src="../logos/autoscad.png" width="162" height="108"></div></td>
+    <td><div align="center"><img src="../logos/autoscad_largo.png" width="170" height="79"></div></td>
     <td><div id="titulos">
       <div align="center">COTIZACION No: <?php echo  $arr_cot['no_cotizacion']; ?><br>
          <BR>
