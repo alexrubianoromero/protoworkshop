@@ -83,6 +83,17 @@ $clientes = mysql_query($sql_clientes,$conexion);
       <td>ID</td>
       <td><input type="text" name="id" id = "id"></td>
     </tr>
+    <tr>
+  <td>TIPO TRANSMISION</td>
+      <td>
+       <select id="transmision">
+        <option value ="0">Seleccione Transmision</option>
+        <option value="A">Automatica</option>
+        <option value="M">Manual</option>
+       </select> 
+    </td>
+  </tr>    
+
    <tr>
     <td colspan="2"> <button id = "grabar_datos_vehiculo"  type = "button">Grabar Datos Vehiculo </button></td>
    </tr>
@@ -124,6 +135,7 @@ $(document).ready(function(){
 						data += '&revision=' + $("#revision").val();
 						data += '&idcliente=' + $("#propietario").find(':selected').val();
 						data += '&id=' + $("#id").val();
+						data += '&transmision=' + $("#transmision").val();
 						$.post('grabar_datos_vehiculo.php',data,function(a){
 							 $("#contenidos").load('muestreplacas2_honda.php');
 							$("#carros123").html('');

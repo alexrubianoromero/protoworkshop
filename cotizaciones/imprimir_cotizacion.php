@@ -14,7 +14,7 @@ $iva = $arr_iva['iva'];
 $sql_numero_cotizacion ="select cot.fecha,cot.id_cotizacion,cot.no_cotizacion,
 cot.kilometraje,
 cli.identi,cli.direccion,cli.nombre,cli.email,cli.telefono,c.color,c.marca,c.placa,c.modelo 
-,cot.coniva
+,cot.coniva,c.tipo,c.transmision
 from $cotizaciones cot
 inner join $tabla4 c on (c.idcarro = cot.idcarro)
 inner join $tabla3 cli on (cli.idcliente = c.propietario)
@@ -71,6 +71,21 @@ $ancho_tabla= "90%";
 	   <td><?php echo $arr_cot['color']; ?></td>
 	   <td>Placas</td>
 	   <td><?php  echo $arr_cot['placa']  ?><input type="hidden" name="idcarro" id="idcarro" ></td>
+  </tr>
+  <tr>
+    <td>linea:<?php  echo $arr_cot['tipo']  ?> </td>
+    <td>Transmision:
+			<?php
+					if($arr_cot['transmision'] == ''){$tipoTransmision = 'Sin Info';} 
+					if($arr_cot['transmision'] == 'M'){$tipoTransmision = 'MANUAL';} 
+					if($arr_cot['transmision'] == 'A'){$tipoTransmision = 'AUTOMATICA';} 
+					echo $tipoTransmision  ;
+				?>
+			</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   </table>
 	<table width="<?php echo $ancho_tabla ?>" border="1">

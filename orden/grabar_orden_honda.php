@@ -222,7 +222,7 @@ $datos_empresa = mysql_fetch_assoc($consulta_empresa);
 $sql_nombres_items_inventarios = "select * from nombres_items_carros  where decarroomoto = '".$datos_empresa['tipo_taller']."'   
 and id_empresa = '94'  ";
 
-echo 'consulta<br>'.$sql_nombres_items_inventarios.'<br>';
+// echo 'consulta<br>'.$sql_nombres_items_inventarios.'<br>';
 
 $consulta_nombres_items = mysql_query($sql_nombres_items_inventarios,$conexion);
 

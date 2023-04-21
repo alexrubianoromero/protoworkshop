@@ -15,7 +15,8 @@ $filas_carro = mysql_num_rows($consulta_carro);
 //echo 'filas carro <br>'.$filas_carro;
 if($filas_carro < 1);
 		{	
-			$sql_grabar_carro = "insert into $tabla4  (placa,marca,tipo,modelo,color,propietario,id_empresa,vencisoat,revision,chasis,motor,id) 
+			$sql_grabar_carro = "insert into $tabla4  (placa,marca,tipo,modelo,color,propietario,
+			id_empresa,vencisoat,revision,chasis,motor,id,transmision) 
 			values (
 			'".$_POST['placa']."',
 			'".$_POST['marca']."',
@@ -28,7 +29,8 @@ if($filas_carro < 1);
 			'".$_POST['revision']."',
 			'".$_POST['chasis']."',
 			'".$_POST['motor']."',
-			'".$_POST['id']."'
+			'".$_POST['id']."',
+			'".$_POST['transmision']."'
 			)
 			
 			";

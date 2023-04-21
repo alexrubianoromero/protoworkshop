@@ -24,7 +24,7 @@ $sql_clientes = "select idcliente,nombre,identi from $tabla3 where id_empresa = 
 $clientes = mysql_query($sql_clientes,$conexion);
 //cli.nombre , cli.identi,
 //inner join $tabla3 cli   on (cli.idcliente = ca.propietario)
-$sql_carro = "select ca.idcarro,ca.placa,ca.marca,ca.tipo,ca.modelo,ca.color,ca.vencisoat,ca.revision,ca.chasis,ca.motor,ca.propietario
+$sql_carro = "select ca.idcarro,ca.placa,ca.marca,ca.tipo,ca.modelo,ca.color,ca.vencisoat,ca.revision,ca.chasis,ca.motor,ca.propietario,ca.transmision
 from $tabla4 ca
  where ca.placa = '".$_REQUEST['placa']."'  ";
 //echo '<br>'. $sql_carro;
@@ -133,6 +133,17 @@ if ($filas  > 0)
     <td><input name="motor" id  = "motor" type="text"  value = "<?php  echo $datos[0]['motor']?> "></td>
   </tr>
   <tr>
+    <td>TRANSMISION</td>
+    <td>
+		<select id="idtransmision" >
+			<option value = "" <?php  if($datos[0]['transmision']!='A' && $datos[0]['transmision']!='M' ) { echo 'selected';}  ?> >SIN INFO</option>
+			<option value = "A" <?php  if($datos[0]['transmision']=='A'){ echo 'selected';}  ?> >AUTOMATICA</option>
+			<option value = "M" <?php  if($datos[0]['transmision']=='M'){ echo 'selected';}  ?>>MANUAL</option>
+
+		</select>
+	</td>
+  </tr>
+  <tr>
     <td>&nbsp;</td>
     <td><input name="idcarro" id  = "idcarro" type="hidden"  value = "<?php  echo $datos[0]['idcarro']?> "></td>
   </tr>
@@ -186,6 +197,7 @@ if ($filas  > 0)
 								data += '&motor=' + $("#motor").val();
 								data += '&cambio_placa=' + $("#cambio_placa:checked").val();
 								data += '&nueva_placa=' + $("#nueva_placa").val();
+								data += '&idtransmision=' + $("#idtransmision").val();
 							$.post('actualize_datos_carro.php',data,function(a){
 							//$(window).attr('location', '../index.php);
 							$("#muestre").html(a);

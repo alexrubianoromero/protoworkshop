@@ -7,14 +7,15 @@ echo '</pre>';
 */
 
 include('../valotablapc.php');
-$sql_carros = "select * from $tabla4 where placa = '".$_REQUEST['placa']."'  and id_empresa = '".$_SESSION['id_empresa']."'   ";
+$sql_carros = "select * from $tabla4 where placa = '".$_REQUEST['placa']."'   ";
 //echo '<br>'.$sql_carros.'<br>';
 $consulta_carro = mysql_query($sql_carros,$conexion);
 $filas_carro = mysql_num_rows($consulta_carro);
 //echo 'filas carro <br>'.$filas_carro;
 if($filas_carro < 1);
-		{			
-			$sql_grabar_carro = "insert into $tabla4  (placa,marca,tipo,modelo,color,id_empresa,vencisoat,revision,propietario,chasis,motor) 
+{			
+			$sql_grabar_carro = "insert into $tabla4  (placa,marca,tipo,modelo,color,id_empresa,vencisoat,
+			revision,propietario,chasis,motor,transmision) 
 			values (
 			'".$_POST['placa']."',
 			'".$_POST['marca']."',
@@ -26,17 +27,12 @@ if($filas_carro < 1);
 			'".$_POST['revision']."',
 			'".$_POST['propietario']."',
 			'".$_POST['chasis']."',
-			'".$_POST['motor']."'
+			'".$_POST['motor']."',
+			'".$_POST['transmision']."'
 			)";
 			//echo '<br>'.$sql_grabar_carro.'<br>';
 			//exit();
 			$consulta_grabar_carros = mysql_query($sql_grabar_carro,$conexion);
 			echo '<H2>GRABACION EXITOSA..</H2>';
-		}
-		
-if($filas_carro > 0);
-		{
-			echo 'ESTA PLACA YA EXISTE NO SE PUEDE GRABAR MAS DE UNA VEZ';
-		}
-
+}
 ?>

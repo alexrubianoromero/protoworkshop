@@ -37,7 +37,9 @@ $sql_maxima_remision  = "select contaor from $tabla10  where id_empresa = '".$_S
 				$_SESSION['ordenpan']= $ordenpan;
 
 
-$sql_placas = "select nombre,identi,direccion,telefono,placa,marca,modelo,color,tipo,chasis,motor  from $tabla4 as car
+$sql_placas = "select nombre,identi,direccion,telefono,placa,marca,modelo,color,tipo,chasis,motor,transmision  
+
+from $tabla4 as car
 inner join $tabla3 as cli on (cli.idcliente = car.propietario)
  where car.placa = '".$_REQUEST['placa123']."' 
   and cli.id_empresa = '".$_SESSION['id_empresa']."'
@@ -142,7 +144,17 @@ $fechapan =  time();
        <? echo $datos[0]['chasis']  ?>
         </label></td>
       </tr>
-      <tr>
+	<tr>
+		<td></td>
+		<td colspan="5">&nbsp;</td>
+		<td>TRANSMISION </td>
+		<td><label><? 
+		$tipoTransmision = 'SIN INFO';
+		if($datos[0]['transmision'] =='A'){$tipoTransmision = 'AUTOMATICA';}
+		if($datos[0]['transmision'] =='M'){$tipoTransmision = 'MANUAL';}
+		echo $tipoTransmision;  ?></label></td>
+	</tr>	
+	  <tr>
         <td>&nbsp;</td>
         <td colspan="5">&nbsp;</td>
         <td>KILOMETRAJE ACTUAL </td>

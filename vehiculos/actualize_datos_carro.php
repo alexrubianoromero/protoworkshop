@@ -20,7 +20,8 @@ color = '".$_POST['color']."',
 vencisoat = '".$_POST['vencisoat']."',
 revision = '".$_POST['revision']."',
 chasis = '".$_POST['chasis']."',
-motor = '".$_POST['motor']."'
+motor = '".$_POST['motor']."',
+transmision = '".$_POST['idtransmision']."'
 ";
 
 if($_POST['cambiopropietario'] ==1) 

@@ -10,7 +10,7 @@ session_start();
 <?php
 include('../valotablapc.php');
 include('../funciones.php');
-$sql_clientes = "select idcliente,nombre,identi from $tabla3 where id_empresa = '".$_SESSION['id_empresa']."'   ";
+$sql_clientes = "select idcliente,nombre,identi from $tabla3 where 1=1 ";
 $clientes = mysql_query($sql_clientes,$conexion);
 
 ?>

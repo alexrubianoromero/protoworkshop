@@ -97,6 +97,18 @@ if ($filas  > 0)
   </tr>
  
   <tr>
+    <td>Tipo transmision</td>
+      <td>
+      <input name="transmision" id  = "transmision" type="text"  >
+       <select id="transmision">
+        <option value ="">Seleccione Transmision</option>
+        <option value="A">Automatica</option>
+        <option value="M">Manual</option>
+       </select> 
+    </td>
+  </tr>
+ 
+  <tr>
     <td colspan="2"><button type ="button"  id = "grabar_carro" ><h3>Grabar Nuevo Carro</h3></button></td>
     </tr>
   <tr>

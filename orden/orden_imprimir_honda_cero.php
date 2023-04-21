@@ -4,17 +4,18 @@ include('../valotablapc.php');
 include('../funciones.php');
 $ancho_tabla = '95%';
 
-$sql_placas = "select cli.nombre as nombrecli,cli.identi as clidenti,cli.direccion,cli.telefono,car.placa,car.marca,car.modelo,
-car.color,car.tipo,car.chasis,
+$sql_placas = "select cli.nombre as nombrecli,cli.identi as clidenti,cli.direccion,cli.telefono,car.placa,car.marca,
+car.modelo,car.color,car.tipo,car.chasis,
  o.fecha,o.observaciones,o.radio,o.antena,o.repuesto,o.herramienta,o.otros,o.iva as iva ,o.orden,o.kilometraje,o.mecanico,o.id,
  e.identi ,e.telefonos as telefonos_empresa ,e.direccion as direccion_empresa,o.kilometraje_cambio,e.tipo_taller,cli.email,e.condiciones_orden,
- o.fecha_entrega, o.fecha_salida , e.email_empresa,e.razon_social,o.abono,o.kilometraje,car.id,o.hora
+ o.fecha_entrega, o.fecha_salida , e.email_empresa,e.razon_social,o.abono,o.kilometraje,car.id,o.hora,
+ car.transmision
 
 from $tabla4 as car
 inner join $tabla3 as cli on (cli.idcliente = car.propietario)
 inner join $tabla14 as o  on (o.placa = car.placa)
 inner join $tabla10 as e on  (e.id_empresa = o.id_empresa) 
- where o.id = '".$_REQUEST['idorden']."'   and   o.id_empresa = '".$_SESSION['id_empresa']."'   ";
+ where o.id = '".$_REQUEST['idorden']."'    ";
  //echo '<br>'.$sql_placas.'<br>';
 $datos = mysql_query($sql_placas,$conexion);
 $filas = mysql_num_rows($datos); 
@@ -140,6 +141,23 @@ else {
 			<td>SERIAL</td>
 			<td><?php echo $datos_orden['chasis']  ?></td>
 		</tr>
+		<tr>
+			<td>LINEA: <?php echo $datos_orden['tipo']  ?></td>
+			<td></td>
+			<td>Transmision:
+			<?php
+					if($datos_orden['transmision'] == ''){$tipoTransmision = 'Sin Info';} 
+					if($datos_orden['transmision'] == 'M'){$tipoTransmision = 'MANUAL';} 
+					if($datos_orden['transmision'] == 'A'){$tipoTransmision = 'AUTOMATICA';} 
+					echo $tipoTransmision  ;
+				?>
+			</td>
+			<td>
+			
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
 		</table>
 
 </div> 
@@ -187,8 +205,20 @@ $suma_mano_obra = suma_manos_obra($_REQUEST['idorden'],$tabla15,$conexion,$_SESS
 $porcentaje_iva = traer_iva($tabla17,$conexion);
 $valor_iva_mano = ($suma_mano_obra * $porcentaje_iva)/100;
 $subtotalmenosabono = $subtotal-$datos_orden['abono'];
-///////////////////////////////////////////////////////////////
 echo '<tr><td colspan="4"></td><td><strong>TOTAL</strong></td><td align="right"><strong>'.number_format($subtotal, 0, ',', '.').'<strong></td> </tr>';
+//aqui debe validar si esta asociada a una cotizacion y si lo esta verificar en la cotizacion el campo coniva
+//si el campo coniva = 1 entonces calcule el iva
+$repuVerifi = verificarSiExisteCotiConIdOrden($_REQUEST['idorden'],$conexion);
+if($repuVerifi['filas']>0 && $repuVerifi['infoCoti']['coniva']==1 )
+{
+	$iva = traerValorIva($conexion);
+	$valorIva = ($subtotal * $iva)/100;
+	$totalConIva = $subtotal + $valorIva ; 
+	echo '<tr><td colspan="4"></td><td><strong>IVA</strong></td><td align="right"><strong>'.number_format($valorIva, 0, ',', '.').'<strong></td> </tr>';
+	echo '<tr><td colspan="4"></td><td><strong>TOTAL + IVA</strong></td><td align="right"><strong>'.number_format($totalConIva, 0, ',', '.').'<strong></td> </tr>';
+}
+
+///////////////////////////////////////////////////////////////
 //echo '<tr><td colspan="4"></td><td><strong>SUBTOTAL Menos Abono</strong></td><td align="right"><strong>'.$subtotalmenosabono.'<strong></td> </tr>';
 ?>
 </table>
@@ -369,7 +399,26 @@ function traer_iva($tabla17,$conexion)
 				$valor_iva = $valor_iva['iva'];
 				return $valor_iva;
 		}
-
+function verificarSiExisteCotiConIdOrden($idOrden,$conexion)
+{
+	$sql = "select * from cotizaciones where id_orden = '".$idOrden."'   ";
+	$consulta = mysql_query($sql,$conexion);
+	$filas = mysql_num_rows($consulta); 
+	if($filas > 0){
+		$infoCoti = mysql_fetch_assoc($consulta); 
+	}
+	$respu['filas'] = $filas;
+	$respu['infoCoti'] = $infoCoti;
+	return $respu; 
+}
+function traerValorIva($conexion)
+{
+	$sql_iva = "select iva from iva ";
+	$consulta_iva = mysql_query($sql_iva,$conexion);
+	$arr_iva = mysql_fetch_assoc($consulta_iva);
+	$iva = $arr_iva['iva'];
+	return $iva;
+}
 ?>
 <br>
 </body>

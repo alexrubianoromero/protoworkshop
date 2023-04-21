@@ -77,6 +77,16 @@ $clientes = mysql_query($sql_clientes,$conexion);
     <td><input type="text" name="motor" id = "motor"></td>
   </tr>
   <tr>
+  <td>TIPO TRANSMISION</td>
+      <td>
+       <select id="transmision">
+        <option value ="0">Seleccione Transmision</option>
+        <option value="A">Automatica</option>
+        <option value="M">Manual</option>
+       </select> 
+    </td>
+  </tr>
+  <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -111,28 +121,81 @@ include('../colocar_links2.php');
 			   
 			  
 						$("#grabar_carro").click(function(){
-							var data =  'placa=' + $("#placa").val();
-								data += '&propietario=' + $("#propietario").val();
-								data += '&marca=' + $("#marca").val();
-								data += '&tipo=' + $("#tipo").val();
-								data += '&modelo=' + $("#modelo").val();
-								data += '&color=' + $("#color").val();
-								data += '&vencisoat=' + $("#vencisoat").val();
-								data += '&revision=' + $("#revision").val();
-								data += '&chasis=' + $("#chasis").val();
-								data += '&motor=' + $("#motor").val();
-
-							$.post('grabar_datos_vehiculo.php',data,function(a){
-							//$(window).attr('location', '../index.php);
-							$("#contenidos").html(a);
-								//alert(data);
-							});	
+              var validacion =  verificarDatosCarro();
+              if(validacion==1)
+              {
+                  var data =  'placa=' + $("#placa").val();
+                    data += '&propietario=' + $("#propietario").val();
+                    data += '&marca=' + $("#marca").val();
+                    data += '&tipo=' + $("#tipo").val();
+                    data += '&modelo=' + $("#modelo").val();
+                    data += '&color=' + $("#color").val();
+                    data += '&vencisoat=' + $("#vencisoat").val();
+                    data += '&revision=' + $("#revision").val();
+                    data += '&chasis=' + $("#chasis").val();
+                    data += '&motor=' + $("#motor").val();
+                    data += '&transmision=' + $("#transmision").val();
+    
+                  $.post('grabar_datos_vehiculo.php',data,function(a){
+                  //$(window).attr('location', '../index.php);
+                  $("#contenidos").html(a);
+                    //alert(data);
+                  });	
+              }
 						 });
 					////////////////////////
-		
+
+          
 					
-		 });	//fin de la funcion principal 		
-          	
+        });	//fin de la funcion principal 		
+        
+        function verificarDatosCarro()
+        {
+          if($("#placa").val()=='' || $("#placa").val().length != 6)
+          {
+              alert('por favor digite la placa debe tener 6 caracteres'  );
+               $("#placa").focus();
+              return 0;
+          }
+          if($("#propietario").val()=='0')
+          {
+              alert('por favor escoja un propietario'  );
+               $("#propietario").focus();
+               return 0;
+          }
+          if($("#marca").val()=='')
+          {
+              alert('por digite marca '  );
+               $("#marca").focus();
+               return 0;
+          }
+          if($("#tipo").val()=='')
+          {
+              alert('por digite tipo '  );
+               $("#tipo").focus();
+               return 0;
+          }
+          if($("#modelo").val()=='')
+          {
+              alert('por digite modelo '  );
+               $("#modelo").focus();
+               return 0;
+          }
+          if($("#color").val()=='')
+          {
+              alert('por digite color '  );
+               $("#color").focus();
+               return 0;
+          }
+          if($("#transmision").val()=='0')
+          {
+              alert('por favor escoja el tipo de  transmision '  );
+               $("#transmision").focus();
+               return 0;
+          }
+
+             return 1;
+        }
 </script>
 
 
