@@ -39,6 +39,7 @@ echo '<table border= "1">';
 	echo '<tr>';
 	echo '<td><h3>No Orden<h3></td><td><h3>Estado</h3></td><td><h3>Linea</h3></td><td><h3>Fecha</h3></td><td><h3>Placa</h3></td><td><h3>Tecnico</h3></td>';
 	// echo '<td><h3>FACTURAR</h3></td>';
+	echo '<td><h3>Gastos</h3></td>';
 	echo '<td><h3>Modificar</h3></td>';
 
 	if($_SESSION['id_empresa'] == '94' )
@@ -67,6 +68,13 @@ echo '<table border= "1">';
 				// 	echo '<a href="../facturas/imprimir_cotizacion?id_cotizacion='.$ordenes['8'].'   " target="_blank">VER_FACTURA </a>';
 				// }	
 				// echo '</h3></td>';
+
+				$sumagastos = traigasumagastos($ordenes['0'],$conexion);	
+				 echo  '<td><h3>';
+				 echo '<button  onclick="pantallagastos('.$ordenes['0'].');" >';
+				 echo number_format($sumagastos,0,",",".");
+				 echo '</button>';
+				 echo '</h3></td>';
 				 echo  '<td><h3>';
 				 if($ordenes['8']<1 && $ordenes['6'] < 2)
       			{	
@@ -112,15 +120,20 @@ function buscar_mecanico($tabla21,$id_mecanico,$id_empresa,$conexion)
 					return $nombre_mecanico;
 }//fin de la funcion
 
-
+function traigasumagastos($id,$conexion)
+{
+	$sql = "select sum(valor) as suma  from gastosorden   where idorden = '".$id."'   ";
+	$consulta = mysql_query($sql,$conexion);
+	$arreglo = mysql_fetch_assoc($consulta);
+	return $arreglo['suma'];    
+}
 
 /////////////
 
 
-
 ?>
 
-	</Div>
+</Div>
 
 </body>
 
@@ -131,4 +144,5 @@ function buscar_mecanico($tabla21,$id_mecanico,$id_empresa,$conexion)
 <script src="../js/prefixfree.min.js"></script>
 
 <script src="../js/jquery-2.1.1.js"></script>   
+<script src="../gastosorden/js/gastos.js"></script>   
 
