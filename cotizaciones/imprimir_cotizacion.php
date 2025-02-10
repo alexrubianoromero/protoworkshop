@@ -32,8 +32,14 @@ $ancho_tabla= "90%";
     <td><div align="center"><img src="../logos/autoscad_largo.png" width="170" height="79"></div></td>
     <td><div id="titulos">
       <div align="center">COTIZACION No: <?php echo  $arr_cot['no_cotizacion']; ?><br>
-         <BR>
-        Cra 50 No 129-07</div>
+          NIT: 901.523.732-6
+        <BR>
+         TEL: 3112424232-3204157144
+         <br>
+        DIRECCION: Cra 50 No 129-07
+        <br>
+        EMAIL: info.protoworkshop@gmail.com
+      </div>
     </div></td>
   </tr>
   <tr>

@@ -343,4 +343,48 @@ function suma_items_local($orden,$tabla,$conexion,$id_empresa)
 			 return $subtotal; 
 		}
 //////////////////////
+
+
+
+//Esta funcion es para verificar si la orden fue creada a partir de una cotizacion 
+//entonces si fue creada desde una cotizacion entonces debe tener placa 
+function buscarIdOrdenEnCotizaciones($idOrden,$conexion)
+{
+	$sql = "select * from cotizaciones where id_orden = '".$idOrden."'   ";
+	$consulta = mysql_query($sql,$conexion);
+	$filas = mysql_num_rows($consulta);
+	
+	$sqlOrden = "select placa from ordenes where id = '".$idOrden."'    ";
+	$consultaOrden = mysql_query($sqlOrden,$conexion);
+	$arrPlaca = mysql_fetch_assoc($consultaOrden); 
+	$placa = $arrPlaca['placa'];
+
+	if($filas>0 )
+	{
+		if( $placa == '')
+		{
+			$arrCoti = mysql_fetch_assoc($consulta);
+			$idCarro= $arrCoti['idcarro'];
+			// die('idcarro'.$idCarro);
+			$sqlTraerPlaca = "select placa from carros where idcarro = '".$idCarro."'   ";
+			$consulta = mysql_query($sqlTraerPlaca,$conexion); 
+			$arrCarro = mysql_fetch_assoc($consulta);
+			$placa = $arrCarro['placa'];
+			// die($placa);
+			// echo '<pre>'; 
+			// print_r($arrCarro);
+			// echo '</pre>';
+			// die();
+			
+			$actualizarPlacaEnOrden = "update ordenes set placa = '".$placa."' where id = '".$idOrden."'    ";
+			// die($actualizarPlacaEnOrden); 
+			$consulta = mysql_query($actualizarPlacaEnOrden,$conexion); 
+			
+		}	
+
+		
+	}	
+	
+}
+
 ?>

@@ -15,6 +15,7 @@
         <div>
             <input type="hidden" id="id" value="<?php  echo $_REQUEST['id'];  ?>">
             <h3>Gastos Orden   <?php echo $datosOrden['orden'];   ?></h3>
+            <input type="text" id="proveedor" placeholder="proveedor">
             <input type="text" id="descripciongasto" placeholder="descripcion">
             <input type="text" id="valorgasto" placeholder="valor">
             <button onclick="agregarGasto('<?php     echo $_REQUEST['id'];   ?>');">Agregar Gasto</button>
@@ -59,6 +60,7 @@
         echo '<table border="1">';  
         echo '<tr>'; 
         echo '<th>Fecha</th>';
+        echo '<th>Proveedor</th>';
         echo '<th>Descripcion</th>';
         echo '<th>Valor</th>';
         echo '<th>Eliminar</th>';
@@ -67,6 +69,7 @@
         {
            echo '<tr>'; 
            echo '<td>'.$gasto['fecha'].'</td>';
+           echo '<td>'.$gasto['proveedor'].'</td>';
            echo '<td>'.$gasto['descripcion'].'</td>';
            echo '<td>'.number_format($gasto['valor'],0,",",".").'</td>';
            echo '<td><button onclick="eliminargastoorden('.$gasto['id'].');">Eliminar</button></td>';

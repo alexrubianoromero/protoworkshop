@@ -3,6 +3,8 @@ session_start();
 include('../valotablapc.php');
 include('../funciones.php');
 $ancho_tabla = '95%';
+buscarIdOrdenEnCotizaciones($_REQUEST['idorden'],$conexion);
+
 
 $sql_placas = "select cli.nombre as nombrecli,cli.identi as clidenti,cli.direccion,cli.telefono,car.placa,car.marca,
 car.modelo,car.color,car.tipo,car.chasis,

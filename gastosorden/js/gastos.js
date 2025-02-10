@@ -18,6 +18,7 @@ function pantallagastos(idOrden)
 
 function agregarGasto(idOrden)
 {
+    var proveedor = document.getElementById("proveedor").value;
     var descripcion = document.getElementById("descripciongasto").value;
     var valor = document.getElementById("valorgasto").value;
     const http=new XMLHttpRequest();
@@ -34,6 +35,7 @@ function agregarGasto(idOrden)
         "id="+idOrden
         + "&descripcion="+descripcion
         + "&valor="+valor
+        + "&proveedor="+proveedor
         );
         
     }

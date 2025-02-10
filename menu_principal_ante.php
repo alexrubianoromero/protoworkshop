@@ -101,4 +101,3 @@ echo 'Usuario Actual:  '.$_SESSION['nombre_usuario'].'  Perfil: '.$_SESSION['nom
 <script src="js/modernizr.js"></script>   
 <script src="js/prefixfree.min.js"></script>
 <script src="js/jquery-2.1.1.js"></script>   
-<!-- <script src="marcas/js/marcas.js"></script>    -->
