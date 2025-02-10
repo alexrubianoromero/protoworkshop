@@ -211,8 +211,14 @@ echo '<tr><td colspan="4"></td><td><strong>TOTAL</strong></td><td align="right">
 //aqui debe validar si esta asociada a una cotizacion y si lo esta verificar en la cotizacion el campo coniva
 //si el campo coniva = 1 entonces calcule el iva
 $repuVerifi = verificarSiExisteCotiConIdOrden($_REQUEST['idorden'],$conexion);
+// echo '<pre>';
+// print_r($repuVerifi);
+// echo '</pre>';
+// die();
 if($repuVerifi['filas']>0 && $repuVerifi['infoCoti']['coniva']==1 )
 {
+	
+	// die('llego aca 12345');
 	$iva = traerValorIva($conexion);
 	$valorIva = ($subtotal * $iva)/100;
 	$totalConIva = $subtotal + $valorIva ; 
@@ -403,7 +409,8 @@ function traer_iva($tabla17,$conexion)
 		}
 function verificarSiExisteCotiConIdOrden($idOrden,$conexion)
 {
-	$sql = "select * from cotizaciones where id_orden = '".$idOrden."'   ";
+	$sql = "select * from cotizaciones where id_orden = '".$idOrden."' or fusionadaconorden = '".$idOrden."'  ";
+	// die($sql);
 	$consulta = mysql_query($sql,$conexion);
 	$filas = mysql_num_rows($consulta); 
 	if($filas > 0){

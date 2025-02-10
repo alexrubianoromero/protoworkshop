@@ -215,10 +215,33 @@ echo '<div>';
 				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				http.send("idCotizacion="+idCotizacion
 							+ "&orden="+orden);
-			}				
+			}
+			setTimeout(() => {
+				regrabarIdOrdenEnCotizacion(idCotizacion,orden);
+			}, 300);
+			
 		}
 
     }
+
+	regrabarIdOrdenEnCotizacion(idCotizacion,orden)
+	{
+		const http=new XMLHttpRequest();
+				const url = '../cotizaciones/regrabarIdOrdenEnCotizacion.php';
+				http.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status ==200){
+						// document.getElementById("cuerpoModalClientes").innerHTML = this.responseText;
+					}
+				};
+
+				http.open("POST",url);
+				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				http.send("idCotizacion="+idCotizacion
+							+ "&orden="+orden);
+	}
+
+
+
 	function validarFusionar()
 	{
 		
